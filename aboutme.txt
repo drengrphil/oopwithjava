@@ -1,0 +1,42 @@
+1. Prior to Huawei, I worked on improving the performance of large scale
+   wireless system; through load-balancing algorithms and interference mgt
+   technique.
+
+2. Programming error handler for high availability
+   --> Currently when trap happens due to programming error, the whole
+      database instance or cluster needs to be restarted. With our new
+      singler handling feature, only trapping threads will be suspended.
+      This gives DBAs the opportunity the reboot the whole DB cluster
+      during noncritical business hours or scheduled maintenance.
+
+      -> I contributed time stamping for error logging
+      -> Implemented first failure data capture (FFDC) that facilitates
+         error tracing - my implementation collects backtrace and log it.
+
+3. Multinode database sharding. Currently, several DB servers work together
+   for failover or high availability. So, when one server fails, another
+   standby server takes over.
+
+   Still on HA, instead of file system replication
+   Replication: when changes to a file system are mirrored to a file system on a different node.
+
+   Instead of replication, let us shard the data based on specific distribution
+   key, and different ranges of data will reside on different node in the cluster
+   that way application can direct query to specific node where the requested data range
+   resides. We developed a range sharding
+
+   --> I contributed a system catalog table for persistent storage of distribution
+       keys, which is used by the master or coordinator to direct a query to.
+
+   --> I implemented an in-memory representation of the distribution key storage in form
+       of a standard key-value map.
+
+   --> I implemented a lightweight locking protocol to prevent race condition
+       on threads accessing the distribution key stored in memory and on disk.
+   
+   --> I contributed to the in-cluster data migration feature: sometimes we want to
+       move certain range of data from one datanode to another for loading balancing
+       when a partition is full.
+
+   --> Started working on TPCC workload testing/benchmarking of the micro-paritition feature
+       then I ran out of contract.
