@@ -1,0 +1,137 @@
+-- Domain Driven Design (DDD):
+   structure of software code should match the business Domain
+   -- E.g. if a software processes loan application, it should have classes like LoanApplication and Customer.
+   Advantages:
+   1. Places project's primary focus on the core Domain
+   2. Complex designs are based on model of the Domain
+   3. Collaboration between technical and domain experts
+
+-- Command and Query Responsibility Segregation (CQRS) pattern propose 
+    - separating the write data model from the read data model. 
+    - This separation of responsibilities provides flexibility of either coexisting the read and write services.
+    - or be managed separately in different DB storage.
+    - Command and Query approach:
+    - In CQRS, commands are methods whose sole purpose is performing an action.
+    - queries are methods that are only able to read and return data without modifying it.
+    
+    - CQRS microservices split CRUD operations into two independent models that can be effectively managed separately.
+    - Advantages: 
+      1. maintanbility
+      2. easier scalability
+      3. Distributing dev workload
+      4. Improved Security
+      5. Optimized database design
+
+    - Disadvantages:
+      1. Added complexity in the design
+
+Spring boot: an open source Java-based framework to create micro service.
+- Flexible ways to configure things like Java Beans, XML and database transactions.
+
+Micro service: is an architecture that allows developers to develop and deploy services independently.
+   Each service has its own process achieves lightweight to support business applications.
+   - Easy deployment
+   - simple scalability
+   - compatible with containers
+   - less configuration
+   - less production time
+
+
+-- Gives clients the power to ask exactly what they need.
+
+-- Makes it easier to evolve APIs over time
+
+-- GraphQL is not a DB, is a query language for APIs
+
+-- GraphQL can be used with any DB
+
+-- Client-specified queries: structure of data is not hardcoded as in REST API
+   Retrieving data from server is more efficient for client.
+
+-- Error Handling: when error occurs the JSON object contains "error" field
+
+-- Two core parts of GraphQL schema:
+   1. schema and 2. resolver
+   1. schema: models data that can be fetched. Define queries client are
+      allowed to make, types of data, and relationship between the types.
+
+    2. resolver: defines functions that return the requested data.
+
+-- Server-side caching: still challenging in GraphQL unlike conventional REST APIs
+   -- With REST, it is easy to cache data for reach endpoint
+   -- With GraphQL, it is not clear, which data client will request next.
+
+-- Authentication in GraphQL can be implemented using OAuth
+   Delegate data access logic to the business logic layer and not directly
+   in the GraphQL implementation.
+
+-- Key Concepts of GraphQL
+   1. Hierarchical   2. Product-centric   3. Strong-typing   4. Client-specified queries
+   5. Introspective
+
+-- Main REST vs GraphQL
+   GraphQL does not deal with dedicated resources, everything is regarded
+   as a graph can is connected and can be queried to app specific needs.
+
+-- Disadvantage of GraphQL
+   -- Difficult to do error handling because query always return HTTP status code 200
+   even if there is an error
+   -- response JSON contains a top-level "errors" key to indicate error.
+   -- No built-in caching. REST API have multiple endpoints and can leverage
+      native HTTP caching to avoid refetcging resources.
+      With GraphQL, you have to setup your own caching or using a globally unique ID.
+   -- Complexity: not worth using for simple REST API that deals with relatively
+      consitent data, it is better to stick to REST.
+      It is good for APi with rapidly-changing data at scale.
+
+-- Nested attack in GraphQL
+   Nested attack: number of recursions submited in a query
+   Solution: 
+       1. Query validation - server determines if there is any serious error
+          in the query
+       2.  Query timeout - add timeout to the query execution
+
+-- AST in GraphQL: when a GraphQL server receives a query to process, it generally arrives in String.
+   So, this String must be tokenized and parsed into a representation for machine to understand
+   abstract syntax tree (AST) is the representation.
+   
+   Converting raw strings to an AST is the first step of every compiler.
+
+-- Criteria for using GraphQL vs HATEOAS
+    GraphQL:
+       1. Fine control on returned data
+       2. it's query language
+       3. reduced latency - each query specifies everything needed.
+       4. no caching
+    HATEOAS:
+       1. caching is well defined
+       2. lots of CDNs to spread the load
+       3. file uploading
+       4. relatively mature, good ecosystem
+
+-- Apollo is the full-fledged GraphQL.
+
+-- Security Vulnerabilities:
+   1. Authorization check - handles by resolvers at the GraphQL API layer
+      If forgotten in any resolver location, could lead to an exploited Authorization flaw.
+
+   2. Missing validation of custom scalars
+
+-- AWS:
+Experience: Amazon Linux 2
+1. S3 Bucket to store images
+2. Amplify, AppSync, DynamoDB and Lambda
+
+--> Async vs sync
+    -> Synchronous API call: code execution block (or wait) for the API call to return before continuing.
+       This means that until a response is returned by the API, the application will not execute further.
+       > Users could see this as latency or performance language.
+    
+    -> Asynchronous API call: do not block (or wait) for the API call to return from the server.
+       That is, execution continues and when the call returns from the server, a "callback" function is executed.
+
+In Java, C and C#, "callbacks" are usually synchronous (with respect to a "main event loop").
+
+In Javascript, on the other hand, callbacks are usually asynchronous - you pass a 
+function that will be invoked ... but other events will continue to be processed until the callback is invoked.
+

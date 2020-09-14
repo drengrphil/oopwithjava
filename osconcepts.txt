@@ -1,0 +1,112 @@
+--> multithreading: allows concurrent execution of two or more parts of a program
+    for maximum CPU utilization
+->  Program is made of threads and processes
+--> Program is an executed file
+--> Process is an executing instance of a program.
+--> Thread: the smallest executable unit of a process; a process contains multiple threads.
+    Threads give an illusion of multitasking where in reality, CPU executes one thread at a time.
+    Each thread gets a slice of time on the CPU.      
+
+    On a multicore machines, dedicated CPU can run each thread.
+
+-> Why multithreading:
+    1. Higher throughput
+    2. Responsive applications give illusion of multitasking
+    3. Efficient utilization of hardware resources
+
+-> Concurrency: ability of a program to deal with many things at once.
+
+-> Context switching: CPU time is shared across all running processes.
+
+-> Thread Pools: consists of homogeneous worker threads, workers are assigned to execute tasks
+    once a work thread finishes a task, it returned to the pool.
+    Thread pools are bound toa queue from which tasks are dequeued for execution.
+
+-> Locking: synchronization technique used to limit access to a resource in an environment where there are
+    many threads of execution. Locking makes multithreading possible. Example of a lock is mutex.
+
+--> Mutual exclusion (Mutex): is used to guard shared data such as linked-list, array, or anyy primtive type.
+    Mutex allows only a single thread to access a resource.
+
+--> Thread safety: means different threads can access the same resources without causing erroneous behavior or
+    unpredictable results such as race condition or deadlock.
+    Thread safety can be enforced by using synchronization techniques.
+
+--> Deadlock: two or more threads not able to make progress. This is because thread A is holding resources
+    needed by thread B, and thread B holding resources needed by thread A.
+
+    Solution: avoid nested locks by not giving locks to multiple threads if one is already holding lock.
+              avoid unnecessary locks: reduce the need to lock things as much as you can to prevent deadlocks
+
+--> Race condition: occurs when threads access shared resources or program variables that might be worked on by other threads
+    at the same time causing the application data to be inconsistent.
+    That is, threads race through critical sections without thread synchronization to read or write shared resources.
+
+    Solution:   1. thread synchronization within critical sections using a) locks  b) atomic variables   c) message passing
+
+--> Starvation: a thread or application never gets CPU time or access to shared resources because greedy threads hold
+    on to the resources.
+
+    Solution:   1.  Reentrant locks or a mutex
+                2.  Simply grant access to the thread that has been waiting longest
+                3.  Semaphore: to have multiple threads run at once while preventing starvation.
+
+--> Semaphore: is a kernel variable accessible to all processes, and this variable is used for coordinating access
+    to shared memory.
+
+--> Livelock: is when two threads take actions in response to the other thread instead of making progress.
+    Analogy: two people attempt to cross each other in hallway but ended up blocking each other.
+
+    Solution: Use Reentrant lock to determine which thread has been waiting longer, assign lock to it.
+
+--> Redix: Supports pipelining, pooling, redis cluster, scripting, pub/sub, scanning, and more.
+
+--> Redis: in-memory data structure store used as a database, cache and message broker.
+    --> It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, 
+        bitmaps, hyperloglogs, geospatial indexes with radius queries and streams
+    --> Redis has built-in replication, Lua scripting, LRU eviction, transactions and different levels of on-disk persistence,
+
+--> Docker:
+    Container: an isolated process on machine. Uses isolated file system
+    --> isolation leverages kernel namespace and cgroups
+    --> The isolated file system is provided by a container image
+    --> Containers work on bare-metal systems, cloud instances, and virtual machines
+    --> OS level virtualization
+
+--> Elasticsearch is a search engine based on the Lucene library. 
+    It provides a distributed full-text search engine with an HTTP web interface and 
+    schema-free JSON documents. Elasticsearch is developed in Java.
+
+--> Filtered replication: when you realize that you don't need the whole dataset to be replicated to each client.
+    Instead of doing filtered replication, we can do multinode sharding, some data resides on specific clients
+    based on the distribution keys.
+
+--> pub/sub: is a form of asynchronous service-to-service communication
+    used in severless and microservices architecture.
+
+    Exchange of messages between software components
+
+    pub/sub allows messages to be broadcasted to different parts of the system
+    asynchronously.
+
+    pub/sub is a sibling of the message queue paradigm and message-oriented middleware - example is Java Message Service (JMS).
+
+    pub/sub provides greater network scalability and more dynamic network topology. Common implementation:
+    -> Amazon SQS's Java Messaging Library.
+    -> Amazon Simple Queue Service (SQS): distributed message queuing service.  Jakarta Messaging (JMS)
+
+    synchronous: two or more people exchange information in real-time.
+    asynchronous: information exchange among endpoints that does not require
+       every party to respond immediately.
+
+       Advantages of asynchronous:
+       1. Every part is proactive instead of reactive
+       2. All parties focus on task without being interrupted.
+
+--> Message passing versus multithreading
+    -> In message passing, data is ahred by copying it from one parallel component to another. synchronization is implicit with the completion of the copy.
+    -> multithreading shares data implicitly through the use of shared memory with synchronization being performed via mechanisms such as locks, semaphores,
+       and condition variables.
+
+       Cons of multithreading: parallel computers may not support shared memory, message-passing is appropriate in this case.
+       explicit synchronization could result in race condition.
